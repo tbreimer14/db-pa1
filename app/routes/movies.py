@@ -43,7 +43,7 @@ def like_movie():
     #    - Why we pass `params` as a tuple (movie_id, user_email).
     #    - The role of `commit=True` in saving changes.
 
-    query = """ """
+    query = f"""INSERT INTO Likes (movie_id, user_email) VALUES ({movie_id}, '{user_email}');"""
 
     with Database() as db:
         try:
