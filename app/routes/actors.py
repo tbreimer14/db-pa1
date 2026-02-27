@@ -8,9 +8,6 @@ actors_bp = Blueprint("actors", __name__)
 def view_all_actors():
     """Fetch and display all actors."""
 
-    # >>>> TODO 1: Write a query that fetches all actors from `People` <<<<
-    #              The query should retrieve `name`, `nationality`, `dob`, and `gender`.
-
     query = """SELECT name, nationality, dob, gender FROM People;"""
 
     with Database() as db:

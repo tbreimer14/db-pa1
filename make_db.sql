@@ -28,8 +28,8 @@ name varchar(255),
 age int);
 
 CREATE TABLE Likes (
-uemail VARCHAR(255),
-mpid int,
+uemail VARCHAR(255) NOT NULL,
+mpid int NOT NULL,
 PRIMARY KEY (uemail, mpid),
 CONSTRAINT fk_user_likes
 	FOREIGN KEY (uemail) REFERENCES Users(email) ON DELETE CASCADE,
@@ -37,20 +37,20 @@ CONSTRAINT fk_mpid_likes
 	FOREIGN KEY (mpid) REFERENCES MotionPicture(id) ON DELETE CASCADE);
 
 CREATE TABLE Movie (
-mpid int PRIMARY KEY,
+mpid int NOT NULL PRIMARY KEY,
 boxoffice_collection float CHECK (boxoffice_collection >= 0),
 CONSTRAINT fk_mp_movie
 	FOREIGN KEY (mpid) REFERENCES MotionPicture(id) ON DELETE CASCADE);
 	
 CREATE TABLE Series (
-mpid int PRIMARY KEY,
+mpid int NOT NULL PRIMARY KEY,
 season_count float CHECK (season_count >= 1),
 CONSTRAINT fk_mp_series
 	FOREIGN KEY (mpid) REFERENCES MotionPicture(id) ON DELETE CASCADE);
 	
 CREATE TABLE Role (
-mpid int,
-pid int,
+mpid int NOT NULL,
+pid int NOT NULL,
 role_name VARCHAR(255),
 PRIMARY KEY (mpid, pid, role_name),
 CONSTRAINT fk_mp_role
@@ -59,8 +59,8 @@ CONSTRAINT fk_people_role
 	FOREIGN KEY (pid) REFERENCES People(id) ON DELETE CASCADE);
 	
 CREATE TABLE Award (
-mpid int,
-pid int,
+mpid int NOT NULL,
+pid int NOT NULL,
 award_name VARCHAR(255),
 award_year int,
 PRIMARY KEY (mpid, pid, award_name, award_year),
@@ -70,14 +70,14 @@ CONSTRAINT fk_people_award
 	FOREIGN KEY (pid) REFERENCES People(id) ON DELETE CASCADE);
 
 CREATE TABLE Genre (
-mpid int,
+mpid int NOT NULL,
 genre_name VARCHAR(255),
 PRIMARY KEY (mpid, genre_name),
 CONSTRAINT fk_mp_genre
 	FOREIGN KEY (mpid) REFERENCES MotionPicture(id) ON DELETE CASCADE);
 	
 CREATE TABLE Location (
-mpid int,
+mpid int NOT NULL,
 zip int,
 city VARCHAR(255),
 country VARCHAR(255),
