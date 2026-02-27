@@ -1,3 +1,5 @@
+USE MotionPictureDB;
+
 INSERT INTO MotionPicture (id, NAME, rating, production, budget) VALUES
 (101, 'Breaking Bad', 9.1, 'High Bridge Productions', 195000000),
 (102, 'Band of Brothers', 9.5, 'DreamWorks', 125000000),
