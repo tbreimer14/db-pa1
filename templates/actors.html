@@ -6,37 +6,47 @@
     <title>All Actors</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body class="results-page">
     <div class="container">
-        <h1>All Actors</h1>
-        
+        <!-- HEADER -->
+        <div class="results-header">
+            <h1>👥 All Actors</h1>
+            <p class="subtitle">Browse the complete list of actors in the database</p>
+        </div>
+
         {% if actors %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Actor Name</th>
-                        <th>Nationality</th>
-                        <th>Date of Birth</th>
-                        <th>Gender</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for actor in actors %}
+            <div class="table-card">
+                <table class="styled-table">
+                    <thead>
                         <tr>
-                            <td>{{ actor[0] }}</td> <!-- Actor's name -->
-                            <td>{{ actor[1] }}</td> <!-- Nationality -->
-                            <td>{{ actor[2] }}</td> <!-- Date of Birth -->
-                            <td>{{ actor[3] }}</td> <!-- Gender -->
+                            <th>Actor Name</th>
+                            <th>Nationality</th>
+                            <th>Date of Birth</th>
+                            <th>Gender</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for actor in actors %}
+                            <tr>
+                                <td class="movie-title">{{ actor[0] }}</td>
+                                <td>{{ actor[1] }}</td>
+                                <td>{{ actor[2] }}</td>
+                                <td>{{ actor[3] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% else %}
-            <p>No actors found in the database.</p>
+            <div class="empty-state">
+                <div class="icon">👤</div>
+                <p>No actors found in the database.</p>
+            </div>
         {% endif %}
-        
-        <br>
-        <a href="/">Back to Home</a>  <!-- Link back to home page -->
+
+        <div class="results-footer">
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
     </div>
 </body>
 </html>

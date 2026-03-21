@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies by Country</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="results-page">
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="results-header">
+            <h1>🌍 Motion Pictures Shot in {{ request.form['country'] }}</h1>
+            <p class="subtitle">Browse all motion pictures filmed in this country</p>
+        </div>
+
+        {% if movies %}
+            <div class="table-card">
+                <ul style="list-style-type: disc; padding-left: 30px;">
+                    {% for movie in movies %}
+                        <li>{{ movie[0] }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="icon">🎬</div>
+                <p>No motion pictures found shot in this country.</p>
+            </div>
+        {% endif %}
+
+        <div class="results-footer">
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+
+    </div>
+</body>
+</html>

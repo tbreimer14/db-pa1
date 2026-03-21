@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Insights | Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="results-page">
+    <div class="container">
+        <header class="results-header">
+            <span class="badge">Query Result</span>
+            <h1>Top 2 Rated Thrillers</h1>
+            <p class="subtitle">Exclusively filmed in Boston, Massachusetts</p>
+        </header>
+
+        {% if results %}
+            <div class="table-card">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th><i class="icon">🎬</i> Movie Name</th>
+                            <th><i class="icon">⭐</i> Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in results %}
+                            <tr>
+                                <td class="movie-title">{{ result[0] }}</td>
+                                <td>
+                                    <span class="rating-pill">{{ result[1] }}</span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="icon">🔍</div>
+                <p>No thriller movies shot exclusively in Boston found.</p>
+            </div>
+        {% endif %}
+        
+        <footer class="results-footer">
+            <a href="/" class="back-link">← Return to Dashboard</a>
+        </footer>
+    </div>
+</body>
+</html>

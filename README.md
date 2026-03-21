@@ -1,6 +1,4 @@
-# DB PA
+# Motion Picture DB
 
+My Submission for PA1.2
 By Thomas Breimer
-
-## PA 1.1
-- My schema is specified in `make_db.sql`

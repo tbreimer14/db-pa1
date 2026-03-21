@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youngest and Oldest Actors</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="results-page">
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="results-header">
+            <h1>👥 Youngest & Oldest Actors</h1>
+            <p class="subtitle">Actors who have won awards at the youngest and oldest ages</p>
+        </div>
+
+        <!-- YOUNGEST ACTORS -->
+        <div class="table-card">
+            <h2>🌱 Youngest Actors</h2>
+            {% if youngest_actors %}
+                <ul style="list-style-type: disc; padding-left: 30px;">
+                    {% for actor in youngest_actors %}
+                        <li>{{ actor[0] }} - Age: {{ actor[1] }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="empty-state">
+                    <div class="icon">🌱</div>
+                    <p>No youngest actors found.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- OLDEST ACTORS -->
+        <div class="table-card">
+            <h2>🪴 Oldest Actors</h2>
+            {% if oldest_actors %}
+                <ul style="list-style-type: disc; padding-left: 30px;">
+                    {% for actor in oldest_actors %}
+                        <li>{{ actor[0] }} - Age: {{ actor[1] }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="empty-state">
+                    <div class="icon">🪴</div>
+                    <p>No oldest actors found.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="results-footer">
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+
+    </div>
+</body>
+</html>

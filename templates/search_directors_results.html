@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directors by Zip Code</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="results-page">
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="results-header">
+            <h1>🎬 Directors by Zip Code</h1>
+            <p class="subtitle">Directors of TV series shot in zip code {{ request.form['zip_code'] }}</p>
+        </div>
+
+        {% if results %}
+            <div class="table-card">
+                <ul class="styled-table">
+                    {% for result in results %}
+                        <li class="movie-title">{{ result[0] }} – {{ result[1] }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="icon">📍</div>
+                <p>No directors found for TV series shot in this zip code.</p>
+            </div>
+        {% endif %}
+
+        <div class="results-footer">
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+
+    </div>
+</body>
+</html>

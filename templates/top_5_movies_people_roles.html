@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics | Crew Intensity</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="results-page">
+    <div class="container">
+        <header class="results-header">
+            <span class="badge analytics-badge">Production Analytics</span>
+            <h1>The "Big Production" Leaderboard</h1>
+            <p class="subtitle">Top 5 Movies with the highest cast and crew engagement</p>
+        </header>
+
+        {% if results %}
+            <div class="stats-grid">
+                {% for result in results %}
+                <div class="stats-card {% if loop.index <= 3 %}podium-{{ loop.index }}{% endif %}">
+                    <div class="rank-tag">#{{ loop.index }}</div>
+                    <div class="card-content">
+                        <h2 class="movie-name">{{ result[0] }}</h2>
+                        <div class="metrics">
+                            <div class="metric-item">
+                                <span class="metric-value">{{ result[1] }}</span>
+                                <span class="metric-label">People</span>
+                            </div>
+                            <div class="metric-divider"></div>
+                            <div class="metric-item">
+                                <span class="metric-value">{{ result[2] }}</span>
+                                <span class="metric-label">Roles</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="icon">📊</div>
+                <p>No high-density production data found.</p>
+            </div>
+        {% endif %}
+        
+        <div class="results-footer">
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

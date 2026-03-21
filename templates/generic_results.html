@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title if title else 'Query Results' }} | Movie Database</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="results-page">
+    <div class="container">
+        <header class="results-header">
+            <span class="badge">Advanced Analytics</span>
+            <h1>{{ title if title else 'Database Results' }}</h1>
+            <p class="subtitle">Showing retrieved records from the Movie Database</p>
+        </header>
+
+        {% if results and results|length > 0 %}
+            <div class="table-card">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            {# This logic creates headers based on the number of columns returned #}
+                            {% if results[0]|length == 2 %}
+                                <th>Primary Information</th>
+                                <th>Metric / Value</th>
+                            {% elif results[0]|length == 3 %}
+                                <th>Name / Title</th>
+                                <th>Detail A</th>
+                                <th>Detail B</th>
+                            {% else %}
+                                {% for i in range(results[0]|length) %}
+                                    <th>Column {{ loop.index }}</th>
+                                {% endfor %}
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in results %}
+                            <tr>
+                                {% for column in row %}
+                                    <td class="{{ 'movie-title' if loop.first else '' }}">
+                                        {# Formats numbers to 2 decimal places if they are floats #}
+                                        {% if column is number and column is not integer %}
+                                            {{ "%.2f"|format(column) }}
+                                        {% else %}
+                                            {{ column }}
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <p class="result-count">Total Records Found: <b>{{ results|length }}</b></p>
+        {% else %}
+            <div class="empty-state">
+                <div class="icon">🔍</div>
+                <h3>No Data Found</h3>
+                <p>The query executed successfully but returned zero matches for your criteria.</p>
+            </div>
+        {% endif %}
+        
+        <footer class="results-footer">
+            <a href="/" class="btn-outline">← Return to Dashboard</a>
+        </footer>
+    </div>
+</body>
+</html>

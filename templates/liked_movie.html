@@ -3,22 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Like Movie - Success</title>
+    <title>Like Movie - Result</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body class="results-page">
     <div class="container">
-        <h1>{{ message }}</h1>
 
-        <!-- Display error information if the query fails -->
-        {% if "error" in message.lower() %}
-            <p style="color: red; font-weight: bold;">
-                ⚠ This message appears if the SQL query fails. Check your query and database constraints.
-            </p>
-        {% endif %}
+        <!-- HEADER -->
+        <div class="results-header">
+            <h1>🎉 Movie Like Result</h1>
+            <p class="subtitle">Your action has been processed successfully or with a warning</p>
+        </div>
 
-        <br>
-        <a href="/">Back to Home</a> <!-- Link back to the home page -->
+        <!-- MESSAGE CARD -->
+        <div class="table-card" style="text-align: center; padding: 30px;">
+            {% if "error" in message.lower() %}
+                <div style="color: #dc2626; font-weight: 700; font-size: 1.2rem;">
+                    ⚠ {{ message }}
+                </div>
+                <p style="color: #b91c1c; margin-top: 10px;">
+                    Check your SQL query or database constraints.
+                </p>
+            {% else %}
+                <div style="color: #10b981; font-weight: 700; font-size: 1.2rem;">
+                    ✅ {{ message }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="results-footer" style="text-align: center;">
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
     </div>
 </body>
 </html>

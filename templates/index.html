@@ -4,41 +4,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Database</title>
+    <title>Movie Database Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
     <div class="container">
-        <h1>Welcome to the Movie Database</h1>
 
-        <p>Choose an option below to view details:</p>
+        <!-- HERO SECTION -->
+        <div class="hero">
+            <h1>🎬 Movie Database</h1>
+            <p class="hero-subtitle">
+                Explore movies, actors, analytics, and advanced database insights.
+            </p>
+        </div>
 
-        <ul>
+        <!-- DASHBOARD GRID -->
+        <div class="dashboard-grid">
 
-            <!-- Link to view all movies -->
-            <li><a href="/movies"><button>View All Movies</button></a></li>
-            <br>
-            <!-- Link to view all actors -->
-            <li><a href="/actors"><button>View All Actors</button></a></li>
-            <br>
-            <!-- Form to like a movie (updated with dropdown) -->
-            <li>
+            <!-- QUICK EXPLORE -->
+            <div class="card wide-card">
+                <div class="card-header">
+                    <span class="badge">
+                        <h3>Execute SQL Queries <span style="color: red;">1-18</span> via the interface below.</h3>
+                    </span>
+                </div>
+                <div class="button-group">
+                    <a href="/movies" class="btn">All Movies</a>
+                    <a href="/actors" class="btn">All Actors</a>
+                    <a href="/query/list_tables" class="btn secondary"><span style="color: red"><b>Q1:</b></span> List All Tables</a>
+                </div>
+            </div>
+
+            <!-- USER INTERACTION -->
+            <div class="card">
+                <h3>👍 User Activity</h3>
+
                 <form action="/movies/like_movie" method="POST">
                     <input type="email" name="user_email" placeholder="Your Email" required>
                     <select name="movie_id" required>
                         <option value="" disabled selected>Select a Movie</option>
                         {% for movie in movies %}
-                        <option value="{{ movie[0] }}">{{ movie[0] }} ({{ movie[1] }})</option>
-                        <!-- Movie ID and Name -->
+                        <option value="{{ movie[0] }}">{{ movie[1] }}</option>
                         {% endfor %}
                     </select>
-                    <button type="submit">Like Movie</button>
+                    <button type="submit" class="full-width">Like Movie</button>
                 </form>
-            </li>
-            <br>
-        <!-- Link to home page (if needed) -->
-        <a href="/">Back to Home</a>
+
+                <hr>
+
+                <form action="/query/search_liked_movies" method="POST">
+                    <p class="small-label"><span style="color: red"><b>Q3:</b></span> Liked History</p>
+                    <input type="email" name="user_email" placeholder="Find Liked Movies by Email" required>
+                    <button type="submit" class="full-width btn-outline">Search Liked Movies</button>
+                </form>
+            </div>
+
+            <!-- MOVIE SEARCH -->
+            <div class="card">
+                <h3>🎬 Motion Picture Search</h3>
+
+                <p class="small-label"><span style="color: red"><b>Q2:</b></span> Search Motion Picture</p>
+                <form action="/query/search_movie" method="POST" class="inline-form">
+                    <input type="text" name="movie_name" placeholder="Motion Picture Name..." required>
+                    <button type="submit">Search</button>
+                </form>
+
+                <p class="small-label"><span style="color: red"><b>Q4:</b></span> Search Movies by Country</p>
+                <form action="/query/search_by_country" method="POST" class="inline-form">
+                    <input type="text" name="country" placeholder="Country..." required>
+                    <button type="submit">Search</button>
+                </form>
+
+                <form action="/query/search_multiple_roles" method="POST">
+                    <p class="small-label"><span style="color: red"><b>Q9:</b></span> Multiple Roles</p>
+                    <input type="number" step="0.1" name="rating_threshold" placeholder="Rating > X" required>
+                    <button type="submit" class="full-width">Multiple Roles</button>
+                </form>
+            </div>
+
+            <!-- AWARDS & ACTORS -->
+            <div class="card">
+                <h3>🏆 Awards & Talent</h3>
+                <p class="small-label"><span style="color: red"><b>Q6:</b></span> Awards</p>
+                <form action="/query/search_awards" method="POST" class="inline-form">
+                    <input type="number" name="k" placeholder="Awards > K" required>
+                    <button type="submit">Go</button>
+                </form>
+
+                <a href="/query/find_youngest_oldest_actors" class="link-btn"><span style="color: red"><b>Q7:</b></span> Youngest / Oldest Actors</a>
+                <a href="/query/actors_marvel_warner" class="link-btn"><span style="color: red"><b>Q12:</b></span> Marvel vs Warner</a>
+                <a href="/query/actors_with_common_birthday" class="link-btn"><span style="color: red"><b>Q14:</b></span> Common Birthdays</a>
+            </div>
+
+            <!-- BUSINESS ANALYTICS -->
+            <div class="card">
+                <h3>📊 Business Analytics</h3>
+                <p class="small-label"><span style="color: red"><b>Q11:</b></span> Likes by age</p>
+                <form action="/query/search_movies_by_likes" method="POST" class="dual-input">
+                    <input type="number" name="min_likes" placeholder="Min Likes" required>
+                    <input type="number" name="max_age" placeholder="Max Age" required>
+                    <button type="submit" class="full-width">Likes Filter</button>
+                </form>
+
+                <a href="/query/top_thriller_movies_boston" class="link-btn"><span style="color: red"><b>Q10:</b></span> Top Thrillers in Boston</a>
+                <a href="/query/movies_higher_than_comedy_avg" class="link-btn"><span style="color: red"><b>Q13:</b></span>Better Than Comedy Avg</a>
+                <!-- <a href="/query/top_5_movies_people_roles" class="link-btn"><span style="color: red"><b>Q14:</b></span>Top 5 by Role Count</a> -->
+            </div>
+
+            <!-- DIRECTORS SEARCH -->
+            <div class="card">
+                <h3>🎥 Production Ops</h3>
+                <p class="small-label"><span style="color: red"><b>Q5:</b></span> Directors by Zip Code</p>
+                <form action="/query/search_directors_by_zip" method="POST">
+                    <input type="number" name="zip_code" placeholder="Zip Code" required>
+                    <button type="submit" class="full-width">Search Directors</button>
+                </form>
+                <p class="small-label"><span style="color: red"><b>Q8:</b></span> American Producers</p>
+                <form action="/query/search_producers" method="POST" class="dual-input">
+                    <input type="number" name="box_office_min" placeholder="Min Box Office $(X)" required>
+                    <input type="number" name="budget_max" placeholder="Max Budget $(Y)" required>
+                    <button type="submit" class="full-width">Producers</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>🔍 Advanced Analysis</h3>
+                <div class="link-list">
+                    <a href="/query/top_production_by_genre" class="link-btn"><span style="color: red"><b>Q15:</b></span> Consistent Genre Leaders</a>
+                    <a href="/query/versatile_talent" class="link-btn"><span style="color: red"><b>Q16:</b></span> Most Telented Person</a>
+                    <a href="/query/high_roi_movies" class="link-btn"><span style="color: red"><b>Q17:</b></span> High ROI Movies (USA)</a>
+                    <!-- <p class="small-label"><span style="color: red"><b>Q19:</b></span> Super-Fans by Studio</p>
+                    <form action="/query/super_fans" method="POST">
+                        <input type="text" name="production" placeholder="Q19: Studio Name (e.g. Marvel)" required>
+                        <button type="submit" class="full-width">Find Super-Fans</button>
+                    </form> -->
+
+                    <a href="/query/awarded_series_growth" class="link-btn"><span style="color: red"><b>Q18:</b></span> Awarded Long-Running Series</a>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 </body>
 

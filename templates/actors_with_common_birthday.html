@@ -3,35 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Movies</title>
+    <title>Actors with Common Birthday</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="results-page">
     <div class="container">
+
         <!-- HEADER -->
         <div class="results-header">
-            <h1>🎬 All Movies</h1>
-            <p class="subtitle">Browse the full collection of movies in the database</p>
+            <h1>🎉 Actors with Shared Birthdays</h1>
+            <p class="subtitle">Pairs of actors who celebrate their birthdays on the same day</p>
         </div>
 
-        {% if movies %}
+        {% if results %}
             <div class="table-card">
                 <table class="styled-table">
                     <thead>
                         <tr>
-                            <th>Movie Name</th>
-                            <th>Rating</th>
-                            <th>Production</th>
-                            <th>Budget ($)</th>
+                            <th>Actor 1</th>
+                            <th>Actor 2</th>
+                            <th>Common Birthday</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for movie in movies %}
+                        {% for result in results %}
                             <tr>
-                                <td class="movie-title">{{ movie[0] }}</td>
-                                <td><span class="rating-pill">{{ movie[1] }}</span></td>
-                                <td>{{ movie[2] }}</td>
-                                <td>{{ "{:,}".format(movie[3]) }}</td>
+                                <td class="movie-title">{{ result[0] }}</td>
+                                <td>{{ result[1] }}</td>
+                                <td>{{ result[2] }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -39,14 +38,15 @@
             </div>
         {% else %}
             <div class="empty-state">
-                <div class="icon">🎬</div>
-                <p>No movies found in the database.</p>
+                <div class="icon">🎂</div>
+                <p>No actors found with a shared birthday.</p>
             </div>
         {% endif %}
 
         <div class="results-footer">
             <a href="/" class="back-link">← Back to Home</a>
         </div>
+
     </div>
 </body>
 </html>

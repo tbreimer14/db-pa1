@@ -11,7 +11,7 @@ id int NOT NULL PRIMARY KEY,
 name varchar(255),
 rating int CHECK (rating >= 0 AND rating <= 10),
 production varchar(255),
-budget int CHECK (budget >= 0)
+budget BIGINT CHECK (budget > 0)
 );
 
 CREATE TABLE People (
@@ -22,17 +22,17 @@ dob varchar(255),
 gender varchar(1)
 );
 
-CREATE TABLE Users (
+CREATE TABLE User (
 email varchar(255) NOT NULL PRIMARY KEY,
 name varchar(255),
-age int);
+age int CHECK (age > 18));
 
 CREATE TABLE Likes (
 uemail VARCHAR(255) NOT NULL,
 mpid int NOT NULL,
 PRIMARY KEY (uemail, mpid),
 CONSTRAINT fk_user_likes
-	FOREIGN KEY (uemail) REFERENCES Users(email) ON DELETE CASCADE,
+	FOREIGN KEY (uemail) REFERENCES User(email) ON DELETE CASCADE,
 CONSTRAINT fk_mpid_likes
 	FOREIGN KEY (mpid) REFERENCES MotionPicture(id) ON DELETE CASCADE);
 
